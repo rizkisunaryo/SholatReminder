@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">JhsK1jhEZ5uR7ya-4akOLRVUyz4zNJ1RFhFlX</string>
+    <string name="app_name">SholatReminder</string>
+</resources>
