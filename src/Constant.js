@@ -9,8 +9,8 @@ let WINDOW_HEIGHT = Dimensions.get('window').height;
 let WINDOW_WIDTH = Dimensions.get('window').width;
 
 // TRANSITION
-// let FloatFromBottom = Object.assign({}, Navigator.SceneConfigs.FloatFromBottom);
-// 	delete FloatFromBottom.gestures.pop;
+let FloatFromBottom = Object.assign({}, Navigator.SceneConfigs.FloatFromBottom);
+	delete FloatFromBottom.gestures.pop;
 
 module.exports = {
   ACTION: {
@@ -26,6 +26,6 @@ module.exports = {
     CreateAlarm: 'CreateAlarm',
   },
   TRANSITION: {
-  	// FloatFromBottom, 
+  	FloatFromBottom, 
   }
 }

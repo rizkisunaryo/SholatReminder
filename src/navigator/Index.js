@@ -44,7 +44,7 @@ class Index extends Component {
         	ref={e => this.fullscreenNavigator = e}
           initialRoute={{pageType:Constant.PAGE_TYPE.AlarmList, id:uuidV4()}}
           configureScene={(route, routeStack) => 
-          	Navigator.SceneConfigs.FloatFromBottom}
+          	Constant.TRANSITION.FloatFromBottom}
           renderScene={(route, navigator) => {
             if (route.pageType === Constant.PAGE_TYPE.AlarmList) 
             	return <AlarmList route={route} navigator={navigator} />;
