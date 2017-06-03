@@ -22,6 +22,7 @@ export default class CreateAlarm extends Component {
       daysActive: [],
       modalType: '',
       modalVisible: false,
+      prayTime: 'Shubuh',
       repeatModalTop: 40,
     }
 
@@ -45,6 +46,7 @@ export default class CreateAlarm extends Component {
       daysActive,
       modalType,
       modalVisible,
+      prayTime,
       repeatModalTop,
     } = this.state;
 
@@ -281,6 +283,15 @@ export default class CreateAlarm extends Component {
               onPress={() => this.setState({modalVisible:true, modalType:'repeat'})} >
               <Text style={{color:'blue'}}>{_repeatDaysLabel()}</Text>
             </TouchableOpacity>
+          </View>
+
+          {/* label */}
+          <View
+            style={[styles.container,
+              {flexDirection:'row', justifyContent:'space-between', padding:10}]}>
+            <Text>Label</Text>
+            <TextInput placeholder={prayTime} style={{flex:1, textAlign:'right', fontSize:14}}
+            onChangeText={text => this.labelValue = text}/>
           </View>
         </ScrollView>
 
