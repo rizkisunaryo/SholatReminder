@@ -23,8 +23,6 @@ export default class CreateAlarm extends Component {
       modalType: '',
       modalVisible: false,
       repeatModalTop: 40,
-      weekdaysActive: false,
-      weekendActive: false,
     }
 
     this._switchRepeatDay = this._switchRepeatDay.bind(this);
@@ -48,8 +46,6 @@ export default class CreateAlarm extends Component {
       modalType,
       modalVisible,
       repeatModalTop,
-      weekdaysActive,
-      weekendActive,
     } = this.state;
 
     let _beforeAfterButton = (pBeforeAfter) => {
@@ -67,6 +63,32 @@ export default class CreateAlarm extends Component {
 
     let _repeatModal = () => {
       if (modalType !== 'repeat') return null;
+
+      let _weekButton = (daysArr, label) => {
+        let weekActive = true;
+        daysArr.forEach(el => {
+          if (!weekActive) return;
+          if (daysActive.indexOf(el) < 0) weekActive = false;
+        });
+        return (
+          <TouchableOpacity
+            style={[styles.repeatButton,
+              weekActive ? styles.repeatButtonActive : styles.repeatButtonInactive]}
+            onPress={() => {
+              let nextWeekdaysActive = !weekActive;
+              daysArr.forEach((el, i) => {
+                setTimeout(function(el) {
+                  this._switchRepeatDay(nextWeekdaysActive, el);
+                }.bind(this,el), 100*i);
+              });
+            }}>
+            <Text
+              style={weekActive ? styles.repeatButtonTextActive :
+                styles.repeatButtonTextInactive}>{label}</Text>
+          </TouchableOpacity>
+        );
+      }
+
       return (
         <View
           onLayout={e => this.setState({repeatModalTop:
@@ -83,32 +105,9 @@ export default class CreateAlarm extends Component {
           <View
             style={[{padding:7, flexDirection:'row', justifyContent:'center'},
               styles.modalBottomBorder]}>
-            <TouchableOpacity
-              style={[styles.repeatButton,
-                weekdaysActive ? styles.repeatButtonActive : styles.repeatButtonInactive,
-                {marginRight:10}]}
-              onPress={() => {
-                let nextWeekdaysActive = !weekdaysActive;
-                for(i=2; i<=6; i++) {
-                  setTimeout(function(i) {
-                    this._switchRepeatDay(nextWeekdaysActive, i)
-                  }.bind(this,i), 100*i);
-                };
-                this.setState({weekdaysActive: nextWeekdaysActive});
-              }}>
-              <Text
-                style={weekdaysActive ? styles.repeatButtonTextActive :
-                  styles.repeatButtonTextInactive}>Weekdays</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.repeatButton,
-                weekendActive ? styles.repeatButtonActive :
-                  styles.repeatButtonInactive]}
-              onPress={() => this.setState({weekendActive: !weekendActive})}>
-              <Text
-                style={weekendActive ? styles.repeatButtonTextActive :
-                  styles.repeatButtonTextInactive}>Weekend</Text>
-            </TouchableOpacity>
+            {_weekButton([2,3,4,5,6], 'Weekdays')}
+            <View style={{width:10}} />
+            {_weekButton([1,7], 'Weekend')}
           </View>
           <View
             style={[styles.repeatRow, styles.modalBottomBorder]}>
