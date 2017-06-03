@@ -162,6 +162,39 @@ export default class CreateAlarm extends Component {
       )
     }
 
+    let _repeatDaysLabel = () => {
+      if (daysActive.length < 1) return 'Never';
+
+      let label = '';
+      daysActive.sort();
+      daysActive.forEach(el => {
+        switch (el) {
+          case 1:
+            label += 'Sun, ';
+            break;
+          case 2:
+            label += 'Mon, ';
+            break;
+          case 3:
+            label += 'Tue, ';
+            break;
+          case 4:
+            label += 'Wed, ';
+            break;
+          case 5:
+            label += 'Thu, ';
+            break;
+          case 6:
+            label += 'Fri, ';
+            break;
+          case 7:
+            label += 'Sat, ';
+            break;
+        }
+      });
+      return label.slice(0,-2);
+    }
+
     return (
       <View style={{height:Constant.DIMENSION.WINDOW_HEIGHT, paddingHorizontal:7}}>
         <TopMargin />
@@ -246,7 +279,7 @@ export default class CreateAlarm extends Component {
             <Text style={{marginLeft:10}}>Repeat</Text>
             <TouchableOpacity style={{padding:10, flex:1, alignItems:'flex-end'}}
               onPress={() => this.setState({modalVisible:true, modalType:'repeat'})} >
-              <Text style={{color:'blue'}}>Never</Text>
+              <Text style={{color:'blue'}}>{_repeatDaysLabel()}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
